@@ -1,5 +1,5 @@
 // Renders docs/USER_GUIDE.md to site/guide.html (no dependencies).
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 
 const REPO = 'https://github.com/jm0535/pedon/blob/main/';
 const md = readFileSync(new URL('../docs/USER_GUIDE.md', import.meta.url), 'utf8');
@@ -8,8 +8,8 @@ const slug = s => s.toLowerCase().replace(/<[^>]+>/g, '').replace(/[^\w\s-]/g, '
 
 const fixPath = p => {
   if (/^(https?:|#|mailto:)/.test(p)) return p;
-  if (p.endsWith('pedon_logo.png')) return 'pedon_logo.png';
-  if (p.startsWith('screenshots/')) return p;
+  if (p.endsWith('pedon_logo.png')) return '/pedon_logo.png';
+  if (p.startsWith('screenshots/')) return '/' + p;
   return REPO + p.replace(/^\.\.\//, '');
 };
 
@@ -58,5 +58,6 @@ while (i < lines.length) {
 }
 
 const tpl = readFileSync(new URL('./guide.template.html', import.meta.url), 'utf8');
-writeFileSync(new URL('./guide.html', import.meta.url), tpl.replace('<!--GUIDE-->', out.join('\n')));
-console.log('site/guide.html written');
+mkdirSync(new URL('./guide/', import.meta.url), { recursive: true });
+writeFileSync(new URL('./guide/index.html', import.meta.url), tpl.replace('<!--GUIDE-->', out.join('\n')));
+console.log('site/guide/index.html written');
