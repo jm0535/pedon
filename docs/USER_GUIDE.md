@@ -64,35 +64,98 @@ Tap **New profile**. A profile ID such as `SK-001` is created automatically. **C
 
 ### Site
 
-Record the date, observer, elevation, landform, slope, parent material, drainage, land use and free-text notes, and set a review status (*Draft* or *Reviewed*).
+Every field in the site section, explained:
 
-Tap **Capture GPS** to record the device position — it works without mobile signal as long as location is switched on. The accuracy is shown after a fix. You can also type coordinates (WGS84 decimal degrees); the app warns if they are outside the valid range.
+| Field | What to record |
+|---|---|
+| **Profile ID** | Filled automatically (`SK-001`, `SK-002`, …). Edit it if you use your own numbering scheme |
+| **Date** | Day the pit was described |
+| **Observer** | Who described it — used in reports |
+| **Elevation (m)** | Metres above sea level; filled from GPS if the device reports altitude |
+| **Review status** | *Draft* while working, *Reviewed* when checked. The tag shows on the Profiles list |
+| **GPS (WGS84)** | Tap **Capture GPS** for a device fix — it works without mobile signal as long as location is on, and the accuracy (± metres) is shown. Or type latitude and longitude in decimal degrees (e.g. `-1.292100, 36.821900`); the app warns if they are out of range. Profiles without valid coordinates are left out of the GeoJSON export |
+| **Landform** | The terrain the pit sits in — e.g. *Hill*, *Floodplain*, *Terrace*, *Volcanic slope* |
+| **Slope (%)** | Rise over distance × 100. A 10 m rise over 100 m is 10% |
+| **Parent material** | What the soil formed from — volcanic ash, basalt, limestone, alluvium, colluvium, sandstone, shale, granite/metamorphic, peat or marine sediment |
+| **Drainage** | How wet the soil stays: *very poorly* (permanently wet, grey) through *imperfectly* and *moderately well* to *well* and *excessively* (dries fast) |
+| **Vegetation / land use** | Current cover — forest, plantation, garden, grassland, wetland, cropland or other |
+| **Notes** | Anything else — erosion, tillage, nearby water, previous use |
 
-### Horizons
+### Horizons — the field description
 
-Tap **+ Add horizon** for each layer. A new horizon's top depth is filled in from the bottom of the horizon above. For each horizon record:
+Tap **+ Add horizon** for each layer. A new horizon's top depth is filled in from the bottom of the horizon above, so contiguous layers just need a bottom depth. Tap **Remove** on a horizon to delete it.
 
-- **Designation** (O, A, E, Bw, Bt, Bg, C, R…) and **top/bottom depth** in cm
-- **Moist Munsell hue, value and chroma** — the colour swatch next to the horizon number updates as you type
-- **Sand, silt and clay %** — the USDA texture class fills in automatically when the three add up to about 100
-- **Coarse fragments** (% whole-soil volume), **structure**, **consistence**, **mottles**, **effervescence (HCl)** and **pH**
-- **Texture by feel** — if you don't have lab percentages, tap this button and answer three hand-texture questions to estimate the class
+| Field | What to record |
+|---|---|
+| **Designation** | The horizon code — see the table below |
+| **Top / Bottom (cm)** | Depth measured from the mineral soil surface (0 cm). Bottom must be deeper than top |
+| **Moist colour hue** | Munsell hue: *10R* is red, *5YR/7.5YR* red-brown, *10YR/2.5Y* yellow-brown, *GLEY1* the blue-green grey of waterlogged soil |
+| **Munsell value** | How dark: 2 is nearly black, 8 is pale |
+| **Munsell chroma** | How strong the colour: 1 is dull grey, 8 is vivid |
+| **Sand / Silt / Clay %** | Fine-earth percentages. When all three are entered and total ≈ 100 (±3), the USDA texture class fills in automatically |
+| **Coarse fragments (%)** | Volume of stones and gravel (particles > 2 mm) in the whole soil |
+| **Fine earth + residues (%)** | Volume of fine earth plus dead plant material — used by the Leptosol (shallow soil) check |
+| **Texture** | USDA class. Auto-filled from the percentages, or set it yourself / use **Texture by feel** |
+| **Structure** | How the soil breaks: *single grain* (sand), *massive* (no peds), *granular*, *subangular/angular blocky*, *prismatic* (vertical columns), *platy* (flat plates) |
+| **Consistence (moist)** | How easily a moist clod breaks: *loose*, *friable*, *firm* or *very firm* |
+| **Mottles** | Red-orange or grey patches from wetness: *none*, *few*, *common* or *many* (FAO abundance classes) |
+| **Effervescence (HCl)** | Fizz with dilute hydrochloric acid: *none*, *slight*, *strong* or *violent* — indicates free lime/carbonates |
+| **pH (field or lab)** | Soil pH from a field kit or lab measurement |
 
-The classification panel warns you about gaps or overlaps between horizons, missing depths, pH out of range and texture percentages that don't add up to 100.
+**Designation codes (FAO 2006):**
+
+| Code | Meaning |
+|---|---|
+| **O** | Organic surface layer (litter, not waterlogged) |
+| **H** | Organic layer that is waterlogged (peat) |
+| **A** | Mineral topsoil darkened by organic matter (Ap = ploughed) |
+| **E** | Pale, leached horizon (clay and iron washed out) |
+| **Bw** | Developed subsoil — colour or structure change, little accumulation |
+| **Bt** | Subsoil with clay accumulation (clay films) |
+| **Bg** | Subsoil with gleying — grey/blue colours from waterlogging |
+| **C** | Little-altered parent material |
+| **R** | Continuous solid rock |
+| **2Bt, 2C…** | A leading number marks a new parent material layer |
+
+**Texture by feel** — if you have no laboratory percentages, tap the button under a horizon and answer three questions about a moist soil ball and ribbon. Tap **Use** to write the result into the texture field.
+
+The classification panel at the bottom warns you about gaps or overlaps between horizons, missing depths, pH out of range and texture percentages that don't add up to 100.
 
 ## 5. Laboratory results
 
 <img src="screenshots/13-lab.png" width="280" alt="Laboratory results form"/>
 
-Open **Laboratory results** under each horizon to enter measured data:
+Open **Laboratory results** under a horizon to enter the values your soil laboratory reports. Send samples to a soil lab and ask for the methods shown in the labels — then copy the numbers in exactly as reported.
 
-- Soil organic carbon (%), CEC (NH₄OAc pH 7), base saturation, ECEC, exchangeable Al, ESP
-- ECe (saturation extract at 25 °C) and saturation-extract pH
-- CaCO₃ equivalent, gypsum, bulk density
-- Oxalate and dithionite Fe, Al and Si; phosphate retention; sulfide sulfur
-- Laboratory sample date, mineralogy/method note, lab method/report reference, salinity method reference
+**Leave unmeasured values blank.** Blank means *unknown* — never zero. A blank field simply leaves that part of the classification unverified; a wrong zero can push the WRB key to a wrong conclusion.
 
-**Leave unmeasured values blank.** Blank means *unknown* — never zero. The Solonchak salic check needs ECe at 25 °C, saturation-extract pH where applicable, the sample date and the salinity method reference.
+| Field | What it is | What the WRB engine uses it for |
+|---|---|---|
+| **Soil organic carbon (%)** | Organic C content | Mollic/umbric topsoil checks, histic (organic) material, carbon stocks |
+| **CEC (NH₄OAc, pH 7)** | Nutrient-holding capacity in cmol(+)/kg | Ferralic check — the clay fraction must hold ≤16 cmol(+)/kg; also base-status inputs |
+| **Base saturation (%)** | Share of CEC held by Ca+Mg+K+Na | Eutric (fertile) vs dystric (acid, infertile) qualifiers; ≥50% splits many keys |
+| **ECEC** | Effective CEC at the soil's own pH | Low-activity clay assessment |
+| **Exchangeable Al** | Toxic aluminium, cmol(+)/kg | Al saturation — drives lime requirement and aluminium-toxicity risk |
+| **ESP (%)** | Exchangeable sodium percentage | Natric horizon / Solonetz (≥15% ESP) |
+| **ECe (dS/m)** | Salinity of the saturation extract at 25 °C | Salic horizon / Solonchak: ECe ≥15 dS/m, or ≥8 dS/m with high pH |
+| **pHwater of saturation extract** | pH measured in the extract | Tells saline from sodic conditions on the salic branch |
+| **Laboratory sample date** | When the sample was analysed | Salinity changes with season — the engine records it as evidence |
+| **CaCO₃ equivalent (%)** | Lime content | Calcic horizon / Calcisol |
+| **Gypsum (%)** | Gypsum content | Gypsic horizon / Gypsisol |
+| **Bulk density (g/cm³)** | Dry soil mass per volume | Andic properties (very low values), compaction checks, stock calculations |
+| **Oxalate Fe / Al / Si (%)** | Short-range-order (amorphous) minerals | Andic and vitric properties (volcanic soils / Andosols) |
+| **Dithionite Fe / Al (%)** | Free iron and aluminium oxides | Spodic horizon (Podzols) and iron ratios |
+| **Phosphate retention (%)** | How strongly the soil binds phosphorus | Andic properties — values ≥85% are a strong volcanic indicator |
+| **Sulfide sulfur (%)** | Sulfidic material | Sulfuric horizon (acid-sulfate soils) |
+| **Mineralogy / method note** | Clay mineral identification or extra method detail | Supporting evidence for nitic and ferralic horizons |
+| **Lab method / report reference** | The lab's method code or report number | Traceability — written into reports and the evidence record |
+| **Salinity method / report reference** | How ECe was measured and reported | Required evidence for a salic determination |
+
+### Practical tips for lab data
+
+- **One sample per horizon** gives the best classification. The **Lab sample list** export produces the submission spreadsheet.
+- For salinity checks, record the date — a single low-ECe reading in the wet season does not prove a soil is not saline.
+- If your lab reports pH in water or KCl rather than a saturation extract, still enter it — but note the method so a reviewer knows the scale.
 
 ## 6. Diagnostic features
 
@@ -102,9 +165,24 @@ For each field-observable feature choose one of three states:
 
 - **Observed present** — you saw the feature (e.g. cracks and slickensides for vertic, clay films for argic)
 - **Assessed absent** — you checked and it is not there
-- **Not assessed / unknown** — you did not check; this is the honest default
+- **Not assessed / unknown** — you did not check; this is the honest default and it never costs you a classification you could otherwise prove
 
-Also set **Clay activity** (low/high) and **Base status** (auto, low or high — *Auto* uses the mean subsoil pH). These refine the argic candidate split between Acrisol, Lixisol, Alisol and Luvisol.
+What each feature looks like in the pit:
+
+| Feature | Field signs |
+|---|---|
+| **Cracks & slickensides (vertic)** | Wide cracks when dry; polished, grooved ped faces; ≥30% clay. Points toward Vertisols |
+| **Salt crust / high EC (salic)** | White salt on the surface or in layers; lab ECe ≥15 dS/m (or ≥8 with high pH). Points toward Solonchaks |
+| **Gleyic / reducing conditions** | Grey or blue-green matrix, rust-coloured root channels, within 50 cm. Also auto-detected from a GLEY1 hue or a *g* in the designation. Points toward Gleysols |
+| **Andic properties** | Smeary, thixotropic feel; volcanic ash parent material; very low bulk density; NaF pH > 9.5. Points toward Andosols |
+| **Podzolisation** | Bleached E horizon over a dark or red-brown spodic B horizon. Points toward Podzols |
+| **Plinthite / ironstone** | Red-grey mottled clay that hardens irreversibly on drying, or ironstone nodules. Points toward Plinthosols |
+| **Ferralic** | Deep red or yellow clay subsoil, diffuse boundaries, weak structure, very low-activity clay. Points toward Ferralsols |
+| **Argic (clay accumulation)** | Clay films/cutans on ped faces; clay clearly higher in the B horizon than in A/E. Drives the Acrisol–Lixisol–Alisol–Luvisol group |
+| **Cambic B** | A subsoil with structure or colour development but **no** clay increase. Points toward Cambisols |
+| **Fluvic** | Stratified alluvial layers; irregular organic carbon with depth. Points toward Fluvisols |
+
+Also set **Clay activity** (low/high) and **Base status** (auto, low or high — *Auto* uses the mean subsoil pH: below 5.5 counts as low). These refine the argic candidate split: low-activity clays give Acrisol (low base) or Lixisol (high base); high-activity clays give Alisol (low base) or Luvisol (high base). If you are unsure, leave them unset or *Auto* and the engine will ask for the missing evidence rather than guess.
 
 ## 7. Photos
 
