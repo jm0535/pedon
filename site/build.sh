@@ -6,3 +6,4 @@ mkdir -p site/releases site/screenshots
 cp releases/*.apk releases/SHA256SUMS site/releases/
 cp docs/screenshots/*.png site/screenshots/
 cp app/src/main/assets/pedon_logo.png site/
+node site/build-guide.mjs

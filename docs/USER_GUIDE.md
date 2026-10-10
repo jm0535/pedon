@@ -20,7 +20,7 @@ Pedon Studio is an offline field companion for describing soil profiles and clas
 
 ## 1. Install
 
-1. Copy `releases/Pedon-Studio-2.0.0-release.apk` to an Android 10 (or newer) phone or tablet.
+1. On an Android 10 (or newer) phone or tablet, download the APK from [pedonstudio.in4metrix.dev](https://pedonstudio.in4metrix.dev/#download) — or copy `releases/Pedon-Studio-2.0.0-release.apk` from the repository.
 2. Open the file and allow installation from this source when Android asks.
 3. Optionally check the file against `releases/SHA256SUMS` before installing.
 

@@ -214,7 +214,7 @@ Two workflows are included: **Build Pedon APK** (`build.yml`) runs the smoke and
 
 ## Download website
 
-`site/` is the static download page served at https://pedonstudio.in4metrix.dev via Vercel. `vercel.json` runs `site/build.sh`, which copies the APKs and `SHA256SUMS` from `releases/`, the screenshots and the logo into `site/` at deploy time, so new APKs committed to `releases/` go live on the next deploy.
+`site/` is the static download page served at https://pedonstudio.in4metrix.dev via Vercel. `vercel.json` runs `site/build.sh`, which copies the APKs and `SHA256SUMS` from `releases/`, the screenshots and the logo into `site/`, and renders `docs/USER_GUIDE.md` to `/guide` (via `site/build-guide.mjs`, Node only, no dependencies) at deploy time, so new APKs committed to `releases/` go live on the next deploy.
 
 Preview locally:
 
