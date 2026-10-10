@@ -73,7 +73,7 @@ export PEDON_KEY_PASSWORD=your-key-password
 
 **Output location:**
 ```
-app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
+app/build/outputs/apk/release/Pedon-Studio-2.0.5-release.apk
 ```
 
 ---
@@ -82,10 +82,10 @@ app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
 
 ```bash
 # Check signature
-apksigner verify --verbose app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
+apksigner verify --verbose app/build/outputs/apk/release/Pedon-Studio-2.0.5-release.apk
 
 # Check APK contents
-unzip -l app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk | head -20
+unzip -l app/build/outputs/apk/release/Pedon-Studio-2.0.5-release.apk | head -20
 ```
 
 ---
@@ -98,7 +98,7 @@ unzip -l app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk | head -20
 4. App category: **Education** or **Productivity**
 5. Developer name: **in4metrix**
 6. Developer website: **https://www.in4metrix.dev**
-7. Upload `Pedon-Studio-2.0.1-release.apk` to Production track
+7. Upload `Pedon-Studio-2.0.5-release.apk` to Production track
 8. Fill in store listing (use content from `.f-droid/metadata/en-US/`)
 9. Privacy policy: link to `PRIVACY.md` content hosted somewhere
 10. Content rating questionnaire
@@ -140,12 +140,12 @@ RepoType: git
 Repo: https://github.com/jm0535/pedon.git
 
 Builds:
-  - versionName: '2.0.1'
+  - versionName: '2.0.5'
     versionCode: 6
-    commit: v2.0.1
+    commit: v2.0.5
     gradle:
       - yes
-    output: app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
+    output: app/build/outputs/apk/release/Pedon-Studio-2.0.5-release.apk
 ```
 
 ### F-Droid Requirements
@@ -165,7 +165,7 @@ Builds:
 ### Sideload test
 ```bash
 # Install on device
-adb install app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
+adb install app/build/outputs/apk/release/Pedon-Studio-2.0.5-release.apk
 
 # Or copy to phone and open with file manager (enable "Install unknown apps")
 ```

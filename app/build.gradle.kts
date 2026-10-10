@@ -15,8 +15,8 @@ android {
         applicationId = "org.pedon.app"
         minSdk = 29
         targetSdk = 35
-        versionCode = 9
-        versionName = "2.0.4"
+        versionCode = 10
+        versionName = "2.0.5"
     }
 
     signingConfigs {
