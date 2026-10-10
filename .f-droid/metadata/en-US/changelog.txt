@@ -1,0 +1,9 @@
+2.0.0
+• Complete WRB 2022 engine with 22 diagnostic calculators
+• All 32 Reference Soil Groups covered (Technosols and Cryosols added)
+• Qualifier evaluation system with depth specifications
+• Final WRB name generation
+• Dark/light mode with manual toggle
+• Help tab with guides and FAQ
+• First-launch onboarding
+• 92 tests, 100% passing

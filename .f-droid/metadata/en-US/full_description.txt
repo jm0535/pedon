@@ -1,0 +1,19 @@
+Pedon Studio is an offline-first field companion for soil scientists, foresters, agronomists, and land managers.
+
+Features:
+• Describe soil profiles in the field using FAO-standard horizon codes
+• Automatic WRB 2022 classification with 22 diagnostic calculators covering all 32 Reference Soil Groups
+• Qualifier evaluation and final WRB name generation
+• 18 field tools: texture, pH/salinity, bulk density, carbon stocks, CEC/base saturation, RUSLE erosion, lime requirement, and more
+• Photo capture and compression
+• GPS coordinate recording
+• Export to PDF, Word (.docx), CSV, GeoJSON, or JSON backup
+• Dark/light mode with manual toggle
+• Works completely offline — no internet permission required
+• All data stays on your device
+
+WRB 2022 engine covers all 32 Reference Soil Groups: Histosols, Anthrosols, Technosols, Cryosols, Leptosols, Solonetzes, Vertisols, Solonchaks, Gleysols, Andosols, Podzols, Plinthosols, Planosols, Stagnosols, Nitisols, Ferralsols, Chernozems, Kastanozems, Phaeozems, Umbrisols, Durisols, Gypsisols, Calcisols, Retisols, Acrisols, Lixisols, Alisols, Luvisols, Cambisols, Fluvisols, Arenosols, and Regosols.
+
+Reference: IUSS Working Group WRB. 2022. World Reference Base for Soil Resources. 4th edition, corrected 24 September 2024.
+
+Developer & Publisher: in4metrix (https://www.in4metrix.dev)

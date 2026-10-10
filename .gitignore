@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+
+# Gradle (build cache)
+.gradle/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.cache/
+.local/
+
+# Test coverage
+coverage/
+.coverage
+*.cover
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+.releasenotes.md
+
+# Binary build artifacts
+*.apk
+*.aab
+dist/
+
+# Release signing (never commit)
+*.keystore
+*.jks
+local.properties
+pedon-release.keystore
+release-keystore.properties
+
+# Build outputs
+app/build/
+*.apk
+!releases/*.apk
+
+# IDE
+.idea/
+*.iml
+.DS_Store
