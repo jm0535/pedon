@@ -1,17 +1,17 @@
 {
-  "version": "2.0.2",
-  "tag": "v2.0.2",
-  "page": "https://github.com/jm0535/pedon/releases/tag/v2.0.2",
+  "version": "2.0.3",
+  "tag": "v2.0.3",
+  "page": "https://github.com/jm0535/pedon/releases/tag/v2.0.3",
   "release": {
-    "name": "Pedon-Studio-2.0.2-release.apk",
-    "url": "https://github.com/jm0535/pedon/releases/download/v2.0.2/Pedon-Studio-2.0.2-release.apk",
-    "sha256": "54bd26a2d91275f202ac39d119e10f592780c90da13d54974a1bbe8b1a191ad9",
-    "size": 1613102
+    "name": "Pedon-Studio-2.0.3-release.apk",
+    "url": "https://github.com/jm0535/pedon/releases/download/v2.0.3/Pedon-Studio-2.0.3-release.apk",
+    "sha256": "2f010e74bdd5dc119808a86833aa7af72daeb761716ef6a536511451f7aad063",
+    "size": 1614298
   },
   "debug": {
-    "name": "Pedon-Studio-2.0.2-debug.apk",
-    "url": "https://github.com/jm0535/pedon/releases/download/v2.0.2/Pedon-Studio-2.0.2-debug.apk",
-    "sha256": "7f4d1843c766e90657360a08ceab5a73ab37f1b72948df3977c5d6b37fb99279",
-    "size": 9381641
+    "name": "Pedon-Studio-2.0.3-debug.apk",
+    "url": "https://github.com/jm0535/pedon/releases/download/v2.0.3/Pedon-Studio-2.0.3-debug.apk",
+    "sha256": "64b1abe29c6ae3dabbc11657ec6dadfdf69eb321b4cd2f7cfbc63011eec68a38",
+    "size": 9383305
   }
 }
