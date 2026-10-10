@@ -1435,7 +1435,7 @@
           facts.fr_argic_exception = result(STATUS.UNKNOWN, `Argic horizon ${argicHorizon.designation} present in upper 30 cm but water-dispersible clay data not recorded. Enter water-dispersible clay (%) or document geric properties / organic carbon content to assess ferralic exception.`);
         }
       } else {
-        facts.fr_argic_exception = result(STATUS.PASS, `Argic horizon ${argicHorizon.designation} starts at ${argicHorizon.top.toFixed(1)} cm (≥30 cm); ferralic exception met.`);
+        facts.fr_argic_exception = result(STATUS.PASS, `Argic horizon ${argicHorizon.designation} starts at ${argicHorizon.top !== null ? argicHorizon.top.toFixed(1) : 'unknown'} cm (≥30 cm); ferralic exception met.`);
       }
     }
 
@@ -2322,7 +2322,7 @@
     const metrics = { anthropogenicHorizonTopCm: anthroTop, anthropogenicHorizonThicknessCm: anthroThickness > 0 ? anthroThickness : null, hasAnthropogenicHorizon: anthropogenicHorizons.length > 0, horizonType };
     const facts = {};
     if (anthropogenicHorizons.length === 0) { facts.at_anthropogenic_horizon = result(STATUS.UNKNOWN, 'No anthropogenic horizon documented.'); }
-    else { facts.at_anthropogenic_horizon = result(STATUS.PASS, `${horizonType || 'Anthropogenic'} horizon at ${anthroTop.toFixed(1)} cm, ${anthroThickness.toFixed(1)} cm thick.`); }
+    else { facts.at_anthropogenic_horizon = result(STATUS.PASS, `${horizonType || 'Anthropogenic'} horizon at ${anthroTop !== null ? anthroTop.toFixed(1) : 'unknown'} cm, ${anthroThickness.toFixed(1)} cm thick.`); }
     return { facts, metrics };
   }
 

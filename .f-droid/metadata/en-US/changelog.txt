@@ -1,3 +1,9 @@
+2.0.2
+• Fixed FAO 2006 mottle and fine-root abundance classes in the field description tool
+• Fixed a WRB engine crash on profiles with unrecorded horizon depths
+• Website and user guide links in Help and About
+• Fixed copy/share status messages on the Export screen
+
 2.0.1
 • Security hardening: strict content security policy with no inline scripts, safer handling of imported backups
 • Signed with a new release key — export a JSON backup, uninstall 2.0.0, install 2.0.1, then restore

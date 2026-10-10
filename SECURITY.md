@@ -57,6 +57,6 @@ Static files only, no cookies or analytics. Headers: strict CSP with no inline s
 
 ## Known limitations
 
-- Version 2.0.0 was signed with the public debug key. Users still on 2.0.0 should move to 2.0.1 (back up, uninstall, reinstall, restore).
+- Version 2.0.0 was signed with the public debug key. Users still on 2.0.0 should move to 2.0.1 or later (back up, uninstall, reinstall, restore).
 - `style-src` still allows `'unsafe-inline'` because the UI uses inline `style` attributes. Styles cannot execute code; scripts are fully restricted.
 - Data at rest is stored in the app's private WebView storage, protected by Android's app sandbox and the device's file-based encryption (Android 10+; app storage keys are tied to the user's lock screen). It is not encrypted again by the app. An extra app-level encryption layer was assessed and **not** added: the key would have to be usable by the app while it runs, so it gives little protection on a rooted or compromised device, and a lost key would make users' field data unrecoverable.
