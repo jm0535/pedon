@@ -136,9 +136,6 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
   <span><a href="/guide/">User guide</a> · <a href="https://github.com/jm0535/pedon">Source code</a> · <a href="https://github.com/jm0535/pedon/blob/main/PRIVACY.md">Privacy</a> · <a href="https://github.com/jm0535/pedon/blob/main/LICENSE">Apache 2.0</a></span>
 </div></footer>
 
-<script>
-fetch('releases/SHA256SUMS').then(r=>r.ok?r.text():'').then(t=>{t.split('\n').forEach(l=>{const[h,f]=l.trim().split(/\s+/);const el=f&&document.querySelector('[data-sum="'+f+'"]');if(el)el.textContent=h})}).catch(()=>{});
-fetch('releases/Pedon-Studio-2.0.0-release.apk',{method:'HEAD'}).then(r=>{const n=+r.headers.get('content-length');if(n)document.getElementById('size').textContent=(n/1048576).toFixed(1)+' MB'}).catch(()=>{});
-</script>
+<script src="/main.js"></script>
 </body>
 </html>

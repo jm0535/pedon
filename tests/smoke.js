@@ -715,3 +715,21 @@ assert.equal(cryosolDetermine.calculators.cryosol.facts.cr_cryic_100.status, 'pa
 
 console.log('  ✓ cryosol calculator tests');
 
+
+// Security: imported backups must not be able to inject markup or event handlers.
+{
+  const evil = "x' onmouseover='alert(1)' data-x='";
+  const before = t.P.length;
+  t.mrg([{ uid: 'xss-test', id: 'SK-XSS', h: [{ d: 'A', t: 0, b: 10 }], note: evil,
+    photos: [{ id: 'p1', cap: evil, d: "data:image/png;base64,AAAA' onerror='alert(1)" },
+             { id: 'p2', cap: 'ok', d: 'data:image/png;base64,iVBORw0KGgo=' }] }]);
+  const i = t.P.findIndex(p => p.uid === 'xss-test');
+  assert.ok(i >= 0 && t.P.length === before + 1, 'test profile imported');
+  assert.ok(!t.P[i].photos.some(x => x.id === 'p1'), 'photo data URL with trailing payload is rejected');
+  assert.ok(t.P[i].photos.find(x => x.id === 'p2').d.startsWith('data:image/png;base64,'), 'valid photo data URL is kept');
+  const out = t.renderProfile(i);
+  assert.doesNotMatch(out, /onmouseover='alert/, 'single-quote attribute breakout is escaped');
+  assert.doesNotMatch(out, /onerror='alert/, 'photo src breakout is blocked');
+  t.P.splice(i, 1);
+  console.log('  ✓ XSS hardening tests');
+}

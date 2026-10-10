@@ -103,6 +103,7 @@ A direct audit (not shipped in this repository) extracted the corrected manual's
 | **User guide** | [docs/USER_GUIDE.md](docs/USER_GUIDE.md) |
 | **Signing guide** | [SIGNING.md](SIGNING.md) |
 | **Privacy policy** | [PRIVACY.md](PRIVACY.md) |
+| **Security** | [SECURITY.md](SECURITY.md) |
 | **License** | Apache 2.0 |
 
 The 2.0.0 milestone marks the completion of the WRB 2022 engine: 22 diagnostic calculators covering all 32 Reference Soil Groups, qualifier evaluation with depth specifications, and evidence-based final WRB name generation.
@@ -228,7 +229,12 @@ sh site/build.sh && python3 -m http.server 8080 --directory site
 - GPS is requested at runtime. Photo/gallery selection uses Android's document picker; camera capture is offered where a camera app is available.
 - Exports are written using MediaStore into `Downloads/Pedon`; no broad storage permission is used.
 - Profile data and embedded downsized photos are stored in WebView local storage. This has finite capacity; export backups regularly.
-- `android:allowBackup` is disabled so sensitive coordinates and notes are not copied into Android cloud or device-transfer backups. Use the in-app JSON export to back up data.
+- Android cloud backup and device-to-device transfer are disabled (`allowBackup="false"` plus `data_extraction_rules.xml` for Android 12+), so sensitive coordinates and notes are not copied off the device. Use the in-app JSON export to back up data.
+- External `https` links tapped by the user open in the system browser; the WebView itself only loads the bundled app.
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for the security model, controls and how to report a vulnerability.
 
 ## Repository
 

@@ -1,7 +1,7 @@
 # Pedon Studio — Privacy Policy
 
 **Developer & Publisher:** in4metrix (https://www.in4metrix.dev)  
-**Last updated:** 2026-10-10
+**Last updated:** 2026-10-11
 
 ## Summary
 
@@ -37,9 +37,10 @@ The app requests the following permissions at runtime:
 |------------|---------|-----------|
 | `ACCESS_FINE_LOCATION` | Record GPS coordinates for soil profiles | No — you can type coordinates manually |
 | `ACCESS_COARSE_LOCATION` | Fallback GPS when fine location unavailable | No |
-| `CAMERA` | Capture field photos | No — you can select from gallery instead |
 
-All permissions are optional. The app functions fully without them.
+Location is requested only when you tap **Capture GPS**. All permissions are optional; the app functions fully without them.
+
+The app does **not** request the camera or storage permissions. Photos are taken by your camera app or chosen with Android's file picker, and exports are written to `Downloads/Pedon` through Android's MediaStore, which needs no storage permission.
 
 ## Data Sharing
 
@@ -49,9 +50,17 @@ All permissions are optional. The app functions fully without them.
 - Use Android's Share feature to send an export
 - Manually copy files from `Downloads/Pedon/`
 
-## Team Sync (Optional)
+## Backups
 
-If you connect the app to a team sync backend (e.g., claude.ai), profile data is encrypted in transit and stored on that service. You control which profiles are synced. Approved profiles are locked to approvers. This feature is opt-in and requires explicit configuration.
+Android cloud backup and device-to-device transfer are **disabled** for this app, so your coordinates, notes and photos are never copied to Google Drive or a new phone automatically. Use **Export → JSON backup** to keep your own copy. Uninstalling the app deletes its data.
+
+## Links
+
+Tapping a web link inside the app (for example, the in4metrix website) opens it in your browser. The app itself never connects to the internet.
+
+## Download website
+
+The download website (pedonstudio.in4metrix.dev) is a static site hosted on Vercel. It uses no cookies, analytics or tracking scripts. Vercel may keep standard server access logs (such as IP address and requested file) for operating and securing its service.
 
 ## Children's Privacy
 

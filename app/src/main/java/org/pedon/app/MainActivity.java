@@ -92,7 +92,9 @@ public final class MainActivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri = request.getUrl();
-                return !"https".equalsIgnoreCase(uri.getScheme()) || !APP_HOST.equals(uri.getHost());
+                if ("https".equalsIgnoreCase(uri.getScheme()) && APP_HOST.equals(uri.getHost())) return false;
+                if ("https".equalsIgnoreCase(uri.getScheme()) && request.hasGesture()) openExternal(uri);
+                return true;
             }
         });
 
@@ -117,6 +119,15 @@ public final class MainActivity extends AppCompatActivity {
         webView.addJavascriptInterface(new AndroidBridge(), "AndroidBridge");
         setContentView(webView);
         webView.loadUrl(APP_URL);
+    }
+
+    private void openExternal(Uri uri) {
+        try {
+            Intent view = new Intent(Intent.ACTION_VIEW, uri).addCategory(Intent.CATEGORY_BROWSABLE);
+            startActivity(Intent.createChooser(view, "Open link"));
+        } catch (Exception e) {
+            Toast.makeText(this, "No browser available", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private static WebResourceResponse blockedResponse(int code, String reason) {

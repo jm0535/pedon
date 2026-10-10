@@ -7,3 +7,7 @@
 • Help tab with guides and FAQ
 • First-launch onboarding
 • 92 tests, 100% passing
+• Security hardening: stricter content security policy, safer handling of imported backups
+• Camera capture option now offered on Android 11+
+• Links open in your browser
+• Android backup and device transfer disabled to protect field data
