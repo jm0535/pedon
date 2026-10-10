@@ -93,7 +93,7 @@ A direct audit (not shipped in this repository) extracted the corrected manual's
 
 | Field | Value |
 |-------|-------|
-| **Version** | `2.0.0` (v5) |
+| **Version** | `2.0.1` (versionCode 6) |
 | **Build types** | `debug` (testing), `release` (production) |
 | **APK name** | `Pedon-Studio-{version}-{type}.apk` |
 | **Architecture** | Universal (arm64-v8a, armeabi-v7a, x86_64) |
@@ -110,15 +110,17 @@ The 2.0.0 milestone marks the completion of the WRB 2022 engine: 22 diagnostic c
 
 ## Download
 
-Download from **[pedonstudio.in4metrix.dev](https://pedonstudio.in4metrix.dev)**, or get the prebuilt APKs from [`releases/`](releases/):
+Download from **[pedonstudio.in4metrix.dev](https://pedonstudio.in4metrix.dev)** or from [GitHub Releases](https://github.com/jm0535/pedon/releases/latest):
 
 | File | Use |
 |---|---|
-| `Pedon-Studio-2.0.0-release.apk` | Minified build for sideloading |
-| `Pedon-Studio-2.0.0-debug.apk` | Testing build (`org.pedon.app.debug`, installs alongside the release build) |
-| `SHA256SUMS` | Checksums — verify with `sha256sum -c SHA256SUMS` inside `releases/` |
+| `Pedon-Studio-2.0.1-release.apk` | Recommended build for sideloading (1.6 MB, signed with the Pedon release key) |
+| `Pedon-Studio-2.0.1-debug.apk` | Testing build (`org.pedon.app.debug`, installs alongside the release build) |
+| `SHA256SUMS` | Checksums — verify with `sha256sum -c SHA256SUMS` |
 
-> The committed release APK is signed with the **debug key** because no release keystore is configured. It is fine for sideloading, but Play Store uploads and upgrade-compatible releases need your own keystore (see [SIGNING.md](SIGNING.md)).
+Release signing certificate SHA-256: `6a:81:69:7f:00:b4:ce:78:ed:dd:fc:a8:58:ae:ef:3b:da:d1:a5:ee:b3:30:70:f0:62:d7:d5:6b:58:93:a7:ad`
+
+> **Upgrading from 2.0.0:** 2.0.0 was signed with the debug key; 2.0.1 uses the new release key, so Android will not install it over 2.0.0. Export a JSON backup, uninstall 2.0.0, install 2.0.1 and restore the backup.
 
 See the **[User Guide](docs/USER_GUIDE.md)** for installation and usage.
 
@@ -130,7 +132,7 @@ See the **[User Guide](docs/USER_GUIDE.md)** for installation and usage.
 ./gradlew assembleDebug
 ```
 
-Output: `app/build/outputs/apk/debug/Pedon-Studio-2.0.0-debug.apk`
+Output: `app/build/outputs/apk/debug/Pedon-Studio-2.0.1-debug.apk`
 
 The debug build has a `.debug` suffix on the package name (`org.pedon.app.debug`) so it can coexist with the release build on the same device.
 
@@ -140,12 +142,12 @@ The debug build has a `.debug` suffix on the package name (`org.pedon.app.debug`
    ```sh
    ./tools/generate_release_keystore.sh
    ```
-2. Configure signing in `local.properties` (see [SIGNING.md](SIGNING.md))
+2. Configure signing in `~/.gradle/gradle.properties` (see [SIGNING.md](SIGNING.md))
 3. Build:
    ```sh
    ./gradlew assembleRelease
    ```
-4. Output: `app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk`
+4. Output: `app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk`
 
 Or use the helper script:
 ```sh
@@ -156,14 +158,14 @@ Or use the helper script:
 ### Verify APK integrity
 
 ```sh
-sha256sum app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk
-apksigner verify --verbose app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk
+sha256sum app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
+apksigner verify --verbose app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
 ```
 
 ## Distribution
 
 ### Google Play Store
-- Upload `Pedon-Studio-2.0.0-release.apk` to Play Console
+- Upload `Pedon-Studio-2.0.1-release.apk` to Play Console
 - No internet permission declared (offline-first)
 - GPS and camera permissions are optional and granted at runtime
 
@@ -182,7 +184,7 @@ Pedon smoke tests passed.
   ✓ cryosol calculator tests
 ```
 
-Plus 16 qualifier rules tests — **92 tests total, 100% passing**.
+Run `node tests/smoke.js && node tests/qualifier-rules-tests.js`. Each suite prints its assertion count: currently **363 + 52 = 415 assertions, all passing**, including XSS regression checks on imported backups.
 
 ## Build locally
 
@@ -196,26 +198,33 @@ export JAVA_HOME=/path/to/jdk-17 ANDROID_HOME=/path/to/android-sdk
 Outputs:
 
 ```text
-app/build/outputs/apk/debug/Pedon-Studio-2.0.0-debug.apk
-app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk
+app/build/outputs/apk/debug/Pedon-Studio-2.0.1-debug.apk
+app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
 ```
 
-If no release keystore is configured, the release build falls back to the debug key. To publish, create and securely retain your own release keystore.
+If no release keystore is configured, the release build falls back to the debug key (fine for local testing only).
 
-To publish new APKs in the repository, copy them into `releases/` and regenerate checksums:
+### Publish a release
 
-```sh
-cp app/build/outputs/apk/*/Pedon-Studio-*.apk releases/
-(cd releases && sha256sum *.apk > SHA256SUMS)
-```
+APKs are not committed to the repository. To publish a new version:
+
+1. Bump `versionCode` and `versionName` in `app/build.gradle.kts` and add a section to `.f-droid/metadata/en-US/changelog.txt`.
+2. Run:
+   ```sh
+   ./tools/publish_release.sh
+   ```
+   This runs the tests, builds both APKs, refuses to continue if the release APK is debug-signed, creates the GitHub Release `v<version>` with the APKs and `SHA256SUMS` (using the changelog section as notes), and writes `site/release.json`.
+3. Commit and push `site/release.json`; the website then links to the new files.
+
+GitHub Releases does not use GitHub Actions minutes.
 
 ## GitHub Actions
 
-Two workflows are included: **Build Pedon APK** (`build.yml`) runs the smoke and qualifier tests, builds `assembleDebug` and uploads `pedon-debug-apk` for 14 days; **Build APK** (`build-apk.yml`) builds and uploads the debug APK. They require GitHub Actions minutes on the account. When Actions is unavailable, build locally (above) and commit the APKs to `releases/`.
+Two workflows are included (optional): **Build Pedon APK** (`build.yml`) runs the smoke and qualifier tests, builds `assembleDebug` and uploads `pedon-debug-apk` for 14 days; **Build APK** (`build-apk.yml`) builds and uploads the debug APK. They require GitHub Actions minutes on the account. When Actions is unavailable, build and publish locally (above).
 
 ## Download website
 
-`site/` is the static download page served at https://pedonstudio.in4metrix.dev via Vercel. `vercel.json` runs `site/build.sh`, which copies the APKs and `SHA256SUMS` from `releases/`, the screenshots and the logo into `site/`, and renders `docs/USER_GUIDE.md` to `/guide` (via `site/build-guide.mjs`, Node only, no dependencies) at deploy time, so new APKs committed to `releases/` go live on the next deploy.
+`site/` is the static download page served at https://pedonstudio.in4metrix.dev via Vercel. `vercel.json` runs `site/build.sh`, which copies the screenshots and logo into `site/` and renders `docs/USER_GUIDE.md` to `/guide` (via `site/build-guide.mjs`, Node only, no dependencies). The download buttons, version, size and checksums come from `site/release.json`, so the page always points at the latest published GitHub Release.
 
 Preview locally:
 

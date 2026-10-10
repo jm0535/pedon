@@ -5,7 +5,13 @@
  * that produces final WRB soil names from diagnostic horizon detection.
  */
 
-const assert = require('assert');
+const rawAssert = require('assert');
+let assertions = 0;
+const assert = new Proxy(rawAssert, {
+  apply: (fn, self, args) => { assertions++; return fn(...args); },
+  get: (fn, k) => typeof fn[k] === 'function' ? (...a) => { assertions++; return fn[k](...a); } : fn[k]
+});
+process.on('exit', code => { if (!code) console.log(`  ${assertions} assertions passed (${require('node:path').basename(__filename)})`); });
 
 // Load the qualifier rules module
 const fs = require('fs');

@@ -1,3 +1,14 @@
+2.0.1
+• Security hardening: strict content security policy with no inline scripts, safer handling of imported backups
+• Signed with a new release key — export a JSON backup, uninstall 2.0.0, install 2.0.1, then restore
+• Camera capture option now offered on Android 11+
+• Links open in your browser
+• Android backup and device transfer disabled to protect field data
+• Backup file import limited to 64 MB; removed unused sync code
+• Themed (monochrome) launcher icon on Android 13+
+• Fixed welcome screen, phone menu, theme and header issues
+• 415 automated checks, all passing
+
 2.0.0
 • Complete WRB 2022 engine with 22 diagnostic calculators
 • All 32 Reference Soil Groups covered (Technosols and Cryosols added)
@@ -6,8 +17,3 @@
 • Dark/light mode with manual toggle
 • Help tab with guides and FAQ
 • First-launch onboarding
-• 92 tests, 100% passing
-• Security hardening: stricter content security policy, safer handling of imported backups
-• Camera capture option now offered on Android 11+
-• Links open in your browser
-• Android backup and device transfer disabled to protect field data

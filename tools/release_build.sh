@@ -70,8 +70,4 @@ if command -v apksigner &>/dev/null; then
     echo ""
 fi
 
-# Copy to releases/ if it exists
-if [ -d releases ]; then
-    cp "$APK" releases/
-    echo "Copied to releases/"
-fi
+echo "To publish this version, run ./tools/publish_release.sh"

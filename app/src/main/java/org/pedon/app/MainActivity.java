@@ -28,6 +28,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.webkit.WebViewAssetLoader;
 
 import java.io.ByteArrayInputStream;
@@ -117,6 +120,13 @@ public final class MainActivity extends AppCompatActivity {
         });
 
         webView.addJavascriptInterface(new AndroidBridge(), "AndroidBridge");
+        // Android 15+ draws apps edge-to-edge; keep the web UI clear of system bars, cutouts and the keyboard.
+        ViewCompat.setOnApplyWindowInsetsListener(webView, (v, insets) -> {
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    | WindowInsetsCompat.Type.displayCutout() | WindowInsetsCompat.Type.ime());
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
         setContentView(webView);
         webView.loadUrl(APP_URL);
     }

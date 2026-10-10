@@ -32,7 +32,7 @@ jobs:
           echo "Checking for Help tab..."
           grep -c 'data-v="help"' app/src/main/assets/index.html
           echo "Checking for onboarding..."
-          grep -c "pedon_onboarded" app/src/main/assets/index.html
+          grep -c "pedon_onboarded" app/src/main/assets/app.js
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon

@@ -28,15 +28,15 @@ Pedon Studio is an offline Android app. A WebView loads bundled HTML/JS from the
 | Permissions | Only location (requested on demand, origin-checked). WebView camera/microphone requests are always denied; photos go through the system picker or camera app |
 | Content providers | `FileProvider` not exported; only the `cache/camera/` folder is shared, with per-URI temporary grants |
 | Backups | `allowBackup="false"`, `fullBackupContent="false"` and `data_extraction_rules.xml` exclude all data from cloud backup and device-to-device transfer |
-| Release build | Not debuggable; R8 minification with the `@JavascriptInterface` method kept |
+| Release build | Not debuggable; signed with the Pedon release key (certificate SHA-256 `6a81697f…5893a7ad`); R8 minification with only the `@JavascriptInterface` method kept; the publish script refuses debug-signed releases |
 
 ### Web app (`index.html`)
 
 | Area | Control |
 |---|---|
-| Content Security Policy | `default-src 'self'`; no remote scripts, frames, objects, workers or form posts; images limited to `self`, `data:` and `blob:` |
+| Content Security Policy | `default-src 'self'`; `script-src 'self'` (no inline scripts); no remote scripts, frames, objects, workers or form posts; images limited to `self`, `data:` and `blob:` |
 | Output encoding | All user data is HTML-escaped (`& < > " ' \``) before being inserted into markup |
-| Import validation | Backups are size-limited (≤1000 profiles, ≤100 photos each), normalised field by field, text lengths capped, photo data URLs must be complete `data:image/(jpeg|png|webp);base64,…` strings |
+| Import validation | Backup files ≤64 MB, ≤1000 profiles, ≤100 photos each, normalised field by field, text lengths capped, photo data URLs must be complete `data:image/(jpeg|png|webp);base64,…` strings |
 | CSV export | Cells starting with `= + - @`, tab or carriage return are prefixed to prevent spreadsheet formula injection |
 
 ### Download website (`site/`, `vercel.json`)
@@ -47,7 +47,8 @@ Static files only, no cookies or analytics. Headers: strict CSP with no inline s
 
 - Dependencies are AndroidX only (`appcompat`, `core`, `webkit`).
 - The Gradle wrapper verifies the distribution with `distributionSha256Sum`.
-- Release keystores and `local.properties` are git-ignored; see [SIGNING.md](SIGNING.md).
+- The release keystore and its passwords live outside the repository (`~/.config/pedon/`, `~/.gradle/gradle.properties`); see [SIGNING.md](SIGNING.md).
+- APKs are distributed through GitHub Releases with SHA-256 checksums, not committed to git.
 
 ## Automated checks
 
@@ -56,6 +57,6 @@ Static files only, no cookies or analytics. Headers: strict CSP with no inline s
 
 ## Known limitations
 
-- The committed release APK is signed with the debug key. Anyone with the public Android debug key could produce an APK that installs as an update over it. Sign production releases with your own keystore.
-- `'unsafe-inline'` is still required for scripts in the app's single-file `index.html`. The CSP still blocks every external source.
-- Data at rest is stored unencrypted in the app's private WebView storage. It is protected by Android's app sandbox but not encrypted separately, so a rooted or compromised device can read it.
+- Version 2.0.0 was signed with the public debug key. Users still on 2.0.0 should move to 2.0.1 (back up, uninstall, reinstall, restore).
+- `style-src` still allows `'unsafe-inline'` because the UI uses inline `style` attributes. Styles cannot execute code; scripts are fully restricted.
+- Data at rest is stored in the app's private WebView storage, protected by Android's app sandbox and the device's file-based encryption (Android 10+; app storage keys are tied to the user's lock screen). It is not encrypted again by the app. An extra app-level encryption layer was assessed and **not** added: the key would have to be usable by the app while it runs, so it gives little protection on a rooted or compromised device, and a lost key would make users' field data unrecoverable.

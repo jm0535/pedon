@@ -38,7 +38,7 @@ keytool -list -v -keystore pedon-release.keystore -alias pedon-release
 
 ## 2. Configure Signing for Local Builds
 
-Create `local.properties` in the project root (already in `.gitignore`):
+Add the signing properties to your **user-level** `~/.gradle/gradle.properties` (outside the repository, `chmod 600`). Gradle reads this file automatically; `local.properties` is **not** read for these values.
 
 ```properties
 pedon.keystore=/absolute/path/to/pedon-release.keystore
@@ -46,6 +46,10 @@ pedon.keystore.password=your-keystore-password
 pedon.key.alias=pedon-release
 pedon.key.password=your-key-password
 ```
+
+The current maintainer setup keeps the keystore at `~/.config/pedon/pedon-release.keystore` with a copy of these properties in `~/.config/pedon/keystore.properties`. **Back up both files** (for example in a password manager and an offline drive). If the keystore is lost, existing installs can never be updated.
+
+Release certificate SHA-256: `6a:81:69:7f:00:b4:ce:78:ed:dd:fc:a8:58:ae:ef:3b:da:d1:a5:ee:b3:30:70:f0:62:d7:d5:6b:58:93:a7:ad`
 
 Or use environment variables (preferred for CI):
 ```bash
@@ -69,7 +73,7 @@ export PEDON_KEY_PASSWORD=your-key-password
 
 **Output location:**
 ```
-app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk
+app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
 ```
 
 ---
@@ -78,10 +82,10 @@ app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk
 
 ```bash
 # Check signature
-apksigner verify --verbose app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk
+apksigner verify --verbose app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
 
 # Check APK contents
-unzip -l app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk | head -20
+unzip -l app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk | head -20
 ```
 
 ---
@@ -94,7 +98,7 @@ unzip -l app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk | head -20
 4. App category: **Education** or **Productivity**
 5. Developer name: **in4metrix**
 6. Developer website: **https://www.in4metrix.dev**
-7. Upload `Pedon-Studio-2.0.0-release.apk` to Production track
+7. Upload `Pedon-Studio-2.0.1-release.apk` to Production track
 8. Fill in store listing (use content from `.f-droid/metadata/en-US/`)
 9. Privacy policy: link to `PRIVACY.md` content hosted somewhere
 10. Content rating questionnaire
@@ -136,15 +140,12 @@ RepoType: git
 Repo: https://github.com/jm0535/pedon.git
 
 Builds:
-  - versionName: '2.0.0'
-    versionCode: 5
-    commit: v2.0.0
+  - versionName: '2.0.1'
+    versionCode: 6
+    commit: v2.0.1
     gradle:
       - yes
-    rm:
-      - releases/*.apk
-    build: ./gradlew assembleRelease
-    output: app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk
+    output: app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
 ```
 
 ### F-Droid Requirements
@@ -164,7 +165,7 @@ Builds:
 ### Sideload test
 ```bash
 # Install on device
-adb install app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk
+adb install app/build/outputs/apk/release/Pedon-Studio-2.0.1-release.apk
 
 # Or copy to phone and open with file manager (enable "Install unknown apps")
 ```
@@ -179,7 +180,7 @@ adb install app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk
 - [ ] Photo capture works
 - [ ] Export to PDF, CSV, GeoJSON works
 - [ ] WRB 2022 classification runs
-- [ ] All 92 tests pass: `node tests/smoke.js && node tests/qualifier-rules-tests.js`
+- [ ] All automated checks pass: `node tests/smoke.js && node tests/qualifier-rules-tests.js`
 
 ---
 
@@ -200,7 +201,8 @@ For each new release:
 2. Update `.f-droid/metadata/en-US/changelog.txt`
 3. Build release APK
 4. Verify checksum: `sha256sum app/build/outputs/apk/release/Pedon-Studio-*.apk`
-5. Upload to Play Store and/or push tag for F-Droid
+5. Run `./tools/publish_release.sh` to create the GitHub Release and update `site/release.json`; commit and push it
+6. Upload to Play Store and/or let F-Droid pick up the `v<version>` tag
 
 ---
 

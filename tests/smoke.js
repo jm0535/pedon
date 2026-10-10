@@ -1,12 +1,20 @@
-const assert = require('node:assert/strict');
+const rawAssert = require('node:assert/strict');
+let assertions = 0;
+const assert = new Proxy(rawAssert, {
+  apply: (fn, self, args) => { assertions++; return fn(...args); },
+  get: (fn, k) => typeof fn[k] === 'function' ? (...a) => { assertions++; return fn[k](...a); } : fn[k]
+});
+process.on('exit', code => { if (!code) console.log(`  ${assertions} assertions passed (${require('node:path').basename(__filename)})`); });
 const fs = require('node:fs');
 const vm = require('node:vm');
-const html = fs.readFileSync(require('node:path').join(__dirname, '..', 'app', 'src', 'main', 'assets', 'index.html'), 'utf8');
-// Extract the LAST <script>...</script> block (the main app), not the head theme-init script
-const lastOpen = html.lastIndexOf('<script>');
-const lastClose = html.lastIndexOf('</script>');
-const match = lastOpen >= 0 && lastClose > lastOpen ? [null, html.slice(lastOpen + 8, lastClose)] : null;
-assert.ok(match, 'inline app script exists');
+const assetPath = f => require('node:path').join(__dirname, '..', 'app', 'src', 'main', 'assets', f);
+const indexHtml = fs.readFileSync(assetPath('index.html'), 'utf8');
+const appJs = fs.readFileSync(assetPath('app.js'), 'utf8');
+assert.doesNotMatch(indexHtml, /<script>/, 'index.html has no inline scripts (CSP script-src self)');
+assert.match(indexHtml, /script-src 'self';/, 'CSP forbids inline scripts');
+assert.match(indexHtml, /<script src="app.js"><\/script>/, 'app script is loaded from app.js');
+const html = indexHtml + appJs;
+const match = [null, appJs];
 assert.match(html, /WRB 2022 · Complete/, 'UI identifies WRB engine as complete');
 assert.match(html, /WRB 2022 determination: INSUFFICIENT EVIDENCE/, 'UI correctly identifies when evidence is insufficient for final determination');
 assert.match(html, /Indicative:/, 'UI correctly labels indicative classification when evidence is insufficient');

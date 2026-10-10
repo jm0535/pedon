@@ -1,0 +1,1 @@
+/* theme init before paint to avoid FOUC */(function(){var k='pedon_theme',v=localStorage.getItem(k),s=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';var t=v||s;if(document.documentElement)document.documentElement.setAttribute('data-theme',t)})();

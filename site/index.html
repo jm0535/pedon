@@ -74,10 +74,10 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
     <h1>Describe soils in the field. <span>Classify with WRB 2022.</span></h1>
     <p class="lead">Pedon Studio is an offline-first field companion for soil scientists, foresters and agronomists. Record profiles, horizons, lab data, GPS and photos, then get an evidence-based WRB 2022 classification — no internet needed.</p>
     <div class="cta">
-      <a class="btn p" href="releases/Pedon-Studio-2.0.0-release.apk" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download APK</a>
+      <a class="btn p" data-apk="release" href="https://github.com/jm0535/pedon/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download APK</a>
       <a class="btn" href="/guide/">User guide</a>
     </div>
-    <p class="meta">Version 2.0.0 · <span id="size">4 MB</span> · Requires Android 10 or newer</p>
+    <p class="meta">Version <span data-version>2.0.1</span> · <span id="size">4 MB</span> · Requires Android 10 or newer</p>
   </div>
   <div class="phone"><img src="screenshots/02-tools.png" alt="Pedon Studio tools screen"></div>
 </header>
@@ -120,15 +120,15 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
     <li><b>Allow installation</b> from this source when Android asks, then tap Install.</li>
   </ol>
   <div class="cta">
-    <a class="btn p" href="releases/Pedon-Studio-2.0.0-release.apk" download>Download Pedon Studio 2.0.0</a>
-    <a class="btn" href="releases/Pedon-Studio-2.0.0-debug.apk" download>Testing build</a>
+    <a class="btn p" data-apk="release" href="https://github.com/jm0535/pedon/releases/latest">Download Pedon Studio <span data-version>2.0.1</span></a>
+    <a class="btn" data-apk="debug" href="https://github.com/jm0535/pedon/releases/latest">Testing build</a>
   </div>
   <table>
     <tr><th>File</th><th>Use</th><th>SHA-256</th></tr>
-    <tr><td>Pedon-Studio-2.0.0-release.apk</td><td>Recommended</td><td><code data-sum="Pedon-Studio-2.0.0-release.apk">see SHA256SUMS</code></td></tr>
-    <tr><td>Pedon-Studio-2.0.0-debug.apk</td><td>Testing; installs alongside the main app</td><td><code data-sum="Pedon-Studio-2.0.0-debug.apk">see SHA256SUMS</code></td></tr>
+    <tr><td data-name="release">Pedon Studio release APK</td><td>Recommended</td><td><code data-sum="release">see release page</code></td></tr>
+    <tr><td data-name="debug">Pedon Studio testing APK</td><td>Testing; installs alongside the main app</td><td><code data-sum="debug">see release page</code></td></tr>
   </table>
-  <p class="note">Android may warn that the app is from an unknown source because it is not distributed through Google Play. You can verify the file against the checksums above (<a href="releases/SHA256SUMS">SHA256SUMS</a>). Back up your profiles regularly with <b>Export → JSON backup</b>; uninstalling the app deletes its data.</p>
+  <p class="note">Android may warn that the app is from an unknown source because it is not distributed through Google Play. You can verify the file against the checksums above or on the <a data-release-page href="https://github.com/jm0535/pedon/releases/latest">GitHub release page</a>. Version 2.0.1 is signed with a new release key: if you installed 2.0.0, export a JSON backup, uninstall it, install 2.0.1 and restore your backup. Back up your profiles regularly with <b>Export → JSON backup</b>; uninstalling the app deletes its data.</p>
 </div></section>
 
 <footer><div class="wrap">

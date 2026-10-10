@@ -20,11 +20,13 @@ Pedon Studio is an offline field companion for describing soil profiles and clas
 
 ## 1. Install
 
-1. On an Android 10 (or newer) phone or tablet, download the APK from [pedonstudio.in4metrix.dev](https://pedonstudio.in4metrix.dev/#download) — or copy `releases/Pedon-Studio-2.0.0-release.apk` from the repository.
+1. On an Android 10 (or newer) phone or tablet, download the APK from [pedonstudio.in4metrix.dev](https://pedonstudio.in4metrix.dev/#download) or from [GitHub Releases](https://github.com/jm0535/pedon/releases/latest).
 2. Open the file and allow installation from this source when Android asks.
-3. Optionally check the file against `releases/SHA256SUMS` before installing.
+3. Optionally check the file against the SHA-256 checksum shown on the download page.
 
-`Pedon-Studio-2.0.0-debug.apk` is a testing build. It installs alongside the release build as a separate app.
+**Upgrading from 2.0.0?** Version 2.0.1 is signed with a new key, so Android won't install it over 2.0.0. In 2.0.0, go to **Export → JSON backup**, uninstall 2.0.0, install 2.0.1, then restore the backup with **Import/Merge**.
+
+`Pedon-Studio-2.0.1-debug.apk` is a testing build. It installs alongside the release build as a separate app.
 
 ## 2. First launch
 
@@ -139,6 +141,7 @@ See [PRIVACY.md](../PRIVACY.md) for the full policy.
 | GPS says it can't get a fix | Turn on location, allow the permission, move into the open and wait up to 30 seconds — or type the coordinates |
 | "Could not save changes" | Storage is full. Export a JSON backup, then delete large photos or old profiles |
 | Classification stays at INSUFFICIENT EVIDENCE | Add the measurements listed under **Next key gate**, or record verified criterion statuses with evidence notes |
+| Android says the app can't be installed or conflicts with an existing package | You have 2.0.0 installed; back it up, uninstall it, then install 2.0.1 |
 | Texture class didn't fill in | Sand + silt + clay must add up to 100 (±3) |
 | Welcome screen won't show again | It only appears once; open **Help** for the same information |
 
