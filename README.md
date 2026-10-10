@@ -93,7 +93,7 @@ A direct audit (not shipped in this repository) extracted the corrected manual's
 
 | Field | Value |
 |-------|-------|
-| **Version** | `2.0.2` (versionCode 7) |
+| **Version** | `2.0.3` (versionCode 8) |
 | **Build types** | `debug` (testing), `release` (production) |
 | **APK name** | `Pedon-Studio-{version}-{type}.apk` |
 | **Architecture** | Universal (arm64-v8a, armeabi-v7a, x86_64) |
@@ -114,8 +114,8 @@ Download from **[pedonstudio.in4metrix.dev](https://pedonstudio.in4metrix.dev)**
 
 | File | Use |
 |---|---|
-| `Pedon-Studio-2.0.2-release.apk` | Recommended build for sideloading (1.6 MB, signed with the Pedon release key) |
-| `Pedon-Studio-2.0.2-debug.apk` | Testing build (`org.pedon.app.debug`, installs alongside the release build) |
+| `Pedon-Studio-2.0.3-release.apk` | Recommended build for sideloading (1.6 MB, signed with the Pedon release key) |
+| `Pedon-Studio-2.0.3-debug.apk` | Testing build (`org.pedon.app.debug`, installs alongside the release build) |
 | `SHA256SUMS` | Checksums — verify with `sha256sum -c SHA256SUMS` |
 
 Release signing certificate SHA-256: `6a:81:69:7f:00:b4:ce:78:ed:dd:fc:a8:58:ae:ef:3b:da:d1:a5:ee:b3:30:70:f0:62:d7:d5:6b:58:93:a7:ad`
@@ -132,7 +132,7 @@ See the **[User Guide](docs/USER_GUIDE.md)** for installation and usage.
 ./gradlew assembleDebug
 ```
 
-Output: `app/build/outputs/apk/debug/Pedon-Studio-2.0.2-debug.apk`
+Output: `app/build/outputs/apk/debug/Pedon-Studio-2.0.3-debug.apk`
 
 The debug build has a `.debug` suffix on the package name (`org.pedon.app.debug`) so it can coexist with the release build on the same device.
 
@@ -147,7 +147,7 @@ The debug build has a `.debug` suffix on the package name (`org.pedon.app.debug`
    ```sh
    ./gradlew assembleRelease
    ```
-4. Output: `app/build/outputs/apk/release/Pedon-Studio-2.0.2-release.apk`
+4. Output: `app/build/outputs/apk/release/Pedon-Studio-2.0.3-release.apk`
 
 Or use the helper script:
 ```sh
@@ -158,14 +158,14 @@ Or use the helper script:
 ### Verify APK integrity
 
 ```sh
-sha256sum app/build/outputs/apk/release/Pedon-Studio-2.0.2-release.apk
-apksigner verify --verbose app/build/outputs/apk/release/Pedon-Studio-2.0.2-release.apk
+sha256sum app/build/outputs/apk/release/Pedon-Studio-2.0.3-release.apk
+apksigner verify --verbose app/build/outputs/apk/release/Pedon-Studio-2.0.3-release.apk
 ```
 
 ## Distribution
 
 ### Google Play Store
-- Upload `Pedon-Studio-2.0.2-release.apk` to Play Console
+- Upload `Pedon-Studio-2.0.3-release.apk` to Play Console
 - No internet permission declared (offline-first)
 - GPS and camera permissions are optional and granted at runtime
 
@@ -198,8 +198,8 @@ export JAVA_HOME=/path/to/jdk-17 ANDROID_HOME=/path/to/android-sdk
 Outputs:
 
 ```text
-app/build/outputs/apk/debug/Pedon-Studio-2.0.2-debug.apk
-app/build/outputs/apk/release/Pedon-Studio-2.0.2-release.apk
+app/build/outputs/apk/debug/Pedon-Studio-2.0.3-debug.apk
+app/build/outputs/apk/release/Pedon-Studio-2.0.3-release.apk
 ```
 
 If no release keystore is configured, the release build falls back to the debug key (fine for local testing only).

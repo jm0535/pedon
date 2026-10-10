@@ -30,6 +30,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.webkit.WebViewAssetLoader;
 
@@ -58,6 +59,7 @@ public final class MainActivity extends AppCompatActivity {
     private File cameraOutputFile;
     private GeolocationPermissions.Callback pendingGeoCallback;
     private String pendingGeoOrigin;
+    private Insets systemInsets = Insets.NONE;
 
     @Override
     protected void onCreate(Bundle state) {
@@ -99,6 +101,11 @@ public final class MainActivity extends AppCompatActivity {
                 if ("https".equalsIgnoreCase(uri.getScheme()) && request.hasGesture()) openExternal(uri);
                 return true;
             }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                applyInsetsCss();
+            }
         });
 
         webView.setWebChromeClient(new WebChromeClient() {
@@ -120,15 +127,36 @@ public final class MainActivity extends AppCompatActivity {
         });
 
         webView.addJavascriptInterface(new AndroidBridge(), "AndroidBridge");
-        // Android 15+ draws apps edge-to-edge; keep the web UI clear of system bars, cutouts and the keyboard.
+        // Draw edge-to-edge on every Android version, then hand the system-bar and
+        // cutout sizes to the page as CSS variables so the web UI pads itself.
+        // View padding on a WebView is not honored consistently across WebView
+        // versions, so the insets are applied in CSS instead.
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         ViewCompat.setOnApplyWindowInsetsListener(webView, (v, insets) -> {
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
-                    | WindowInsetsCompat.Type.displayCutout() | WindowInsetsCompat.Type.ime());
-            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    | WindowInsetsCompat.Type.displayCutout());
+            applyInsetsCss();
             return WindowInsetsCompat.CONSUMED;
         });
         setContentView(webView);
         webView.loadUrl(APP_URL);
+    }
+
+    private void applyInsetsCss() {
+        if (webView == null) return;
+        float d = getResources().getDisplayMetrics().density;
+        webView.evaluateJavascript(
+                "try{var r=document.documentElement.style;"
+                        + "r.setProperty('--sat','" + cssPx(systemInsets.top, d) + "');"
+                        + "r.setProperty('--sab','" + cssPx(systemInsets.bottom, d) + "');"
+                        + "r.setProperty('--sal','" + cssPx(systemInsets.left, d) + "');"
+                        + "r.setProperty('--sar','" + cssPx(systemInsets.right, d) + "');"
+                        + "}catch(e){}",
+                null);
+    }
+
+    private static String cssPx(int px, float density) {
+        return String.format(Locale.US, "%.1fpx", px / density);
     }
 
     private void openExternal(Uri uri) {
