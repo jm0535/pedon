@@ -109,7 +109,7 @@ The 2.0.0 milestone marks the completion of the WRB 2022 engine: 22 diagnostic c
 
 ## Download
 
-Prebuilt APKs are in [`releases/`](releases/):
+Download from **[pedonstudio.in4metrix.dev](https://pedonstudio.in4metrix.dev)**, or get the prebuilt APKs from [`releases/`](releases/):
 
 | File | Use |
 |---|---|
@@ -211,6 +211,16 @@ cp app/build/outputs/apk/*/Pedon-Studio-*.apk releases/
 ## GitHub Actions
 
 Two workflows are included: **Build Pedon APK** (`build.yml`) runs the smoke and qualifier tests, builds `assembleDebug` and uploads `pedon-debug-apk` for 14 days; **Build APK** (`build-apk.yml`) builds and uploads the debug APK. They require GitHub Actions minutes on the account. When Actions is unavailable, build locally (above) and commit the APKs to `releases/`.
+
+## Download website
+
+`site/` is the static download page served at https://pedonstudio.in4metrix.dev via Vercel. `vercel.json` runs `site/build.sh`, which copies the APKs and `SHA256SUMS` from `releases/`, the screenshots and the logo into `site/` at deploy time, so new APKs committed to `releases/` go live on the next deploy.
+
+Preview locally:
+
+```sh
+sh site/build.sh && python3 -m http.server 8080 --directory site
+```
 
 ## Offline/privacy notes
 
