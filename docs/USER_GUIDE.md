@@ -29,6 +29,8 @@ Pedon Studio is an offline field companion for describing soil profiles and clas
 
 The APK is also on [GitHub Releases](https://github.com/jm0535/pedon/releases/latest).
 
+**No install needed?** The full app also runs in a browser at [pedonstudio.in4metrix.dev/app](https://pedonstudio.in4metrix.dev/app) — the same screens, tools and exports. Data stays in that browser's storage (separate from the Android app), so use **JSON backup** to move profiles between them. On Android you can use the browser's *Add to Home screen* to get an app icon; once loaded it also works offline.
+
 **Upgrading from 2.0.0?** Version 2.0.1 and later are signed with a new key, so Android won't install them over 2.0.0. In 2.0.0, go to **Export → JSON backup**, uninstall 2.0.0, install the new version, then restore the backup with **Merge into this device**.
 
 `Pedon-Studio-…-debug.apk` is a testing build. It installs alongside the release build as a separate app.

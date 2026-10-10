@@ -1,0 +1,14 @@
+{
+  "name": "Pedon Studio",
+  "short_name": "Pedon",
+  "description": "Offline field soil description and WRB 2022 classification.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#121216",
+  "theme_color": "#1d7fd6",
+  "icons": [
+    { "src": "pedon_logo.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
+    { "src": "pedon_logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
