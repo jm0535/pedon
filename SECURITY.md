@@ -41,7 +41,9 @@ Pedon Studio is an offline Android app. A WebView loads bundled HTML/JS from the
 
 ### Download website (`site/`, `vercel.json`)
 
-Static files only, no cookies or analytics. Headers: strict CSP with no inline scripts, HSTS, `X-Frame-Options: DENY`, `frame-ancestors 'none'`, `nosniff`, restrictive `Permissions-Policy`, `Cross-Origin-Opener-Policy`. APKs are served as attachments and published with SHA-256 checksums.
+Static files only, no cookies or analytics. Headers: strict CSP with no inline scripts, HSTS, `X-Frame-Options: DENY`, `frame-ancestors 'none'`, `nosniff`, restrictive `Permissions-Policy` (geolocation allowed only for the app's Capture GPS), `Cross-Origin-Opener-Policy`. APKs are pulled from GitHub Releases at deploy time and served same-origin with `application/vnd.android.package-archive` + `Content-Disposition: attachment`, published with SHA-256 checksums.
+
+The web app at `/app/` is the same audited code as the Android build, plus a service worker (`service-worker.js`, cache-first shell — no analytics, no third-party requests) and a PWA manifest. Data in the web app stays in the browser's own storage and the same escaping/import-validation rules apply.
 
 ### Build and supply chain
 

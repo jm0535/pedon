@@ -110,7 +110,9 @@ The 2.0.0 milestone marks the completion of the WRB 2022 engine: 22 diagnostic c
 
 ## Download
 
-Download from **[pedonstudio.in4metrix.dev](https://pedonstudio.in4metrix.dev)** or from [GitHub Releases](https://github.com/jm0535/pedon/releases/latest):
+**Use it now, no install:** the full app runs in the browser at **[pedonstudio.in4metrix.dev/app](https://pedonstudio.in4metrix.dev/app)** — installable to the home screen and offline-capable.
+
+Download the APK from **[pedonstudio.in4metrix.dev](https://pedonstudio.in4metrix.dev)** (served directly from the site for a clean same-origin download) or from [GitHub Releases](https://github.com/jm0535/pedon/releases/latest):
 
 | File | Use |
 |---|---|
@@ -120,7 +122,7 @@ Download from **[pedonstudio.in4metrix.dev](https://pedonstudio.in4metrix.dev)**
 
 Release signing certificate SHA-256: `6a:81:69:7f:00:b4:ce:78:ed:dd:fc:a8:58:ae:ef:3b:da:d1:a5:ee:b3:30:70:f0:62:d7:d5:6b:58:93:a7:ad`
 
-> **Upgrading from 2.0.0:** 2.0.0 was signed with the debug key; 2.0.1 and later use the new release key, so Android will not install it over 2.0.0. Export a JSON backup, uninstall 2.0.0, install 2.0.2 and restore the backup.
+> **Upgrading from 2.0.0:** 2.0.0 was signed with the debug key; 2.0.1 and later use the new release key, so Android will not install it over 2.0.0. Export a JSON backup, uninstall 2.0.0, install the current version and restore the backup.
 
 See the **[User Guide](docs/USER_GUIDE.md)** for installation and usage.
 
@@ -224,7 +226,14 @@ Two workflows are included (optional): **Build Pedon APK** (`build.yml`) runs th
 
 ## Download website
 
-`site/` is the static download page served at https://pedonstudio.in4metrix.dev via Vercel. `vercel.json` runs `site/build.sh`, which copies the screenshots and logo into `site/` and renders `docs/USER_GUIDE.md` to `/guide` (via `site/build-guide.mjs`, Node only, no dependencies). The download buttons, version, size and checksums come from `site/release.json`, so the page always points at the latest published GitHub Release.
+`site/` is the static website served at https://pedonstudio.in4metrix.dev via Vercel:
+
+- `/` — landing/download page; buttons, version, size and checksums come from `site/release.json`
+- `/app` — the complete app hosted on the web (PWA manifest + service worker: installable, offline-capable)
+- `/guide` — rendered from `docs/USER_GUIDE.md` (via `site/build-guide.mjs`, Node only, no dependencies)
+- `/downloads/` — `site/fetch-apks.mjs` pulls the current APKs from GitHub Releases at deploy time, so files download same-origin with `application/vnd.android.package-archive` + `Content-Disposition: attachment` (Android shows a normal completed download instead of navigating to GitHub)
+
+`vercel.json` runs `site/build.sh`, which copies the screenshots, logo and app assets into `site/` and renders the guide.
 
 Preview locally:
 

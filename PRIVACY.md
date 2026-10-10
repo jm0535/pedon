@@ -58,9 +58,11 @@ Android cloud backup and device-to-device transfer are **disabled** for this app
 
 Tapping a web link inside the app (for example, the in4metrix website) opens it in your browser. The app itself never connects to the internet.
 
-## Download website
+## Website and web app
 
-The download website (pedonstudio.in4metrix.dev) is a static site hosted on Vercel. It uses no cookies, analytics or tracking scripts. Vercel may keep standard server access logs (such as IP address and requested file) for operating and securing its service.
+The website (pedonstudio.in4metrix.dev) is a static site hosted on Vercel. It uses no cookies, analytics or tracking scripts. Vercel may keep standard server access logs (such as IP address and requested file) for operating and securing its service.
+
+The site also hosts a browser version of the app at `/app/`. It stores profiles in your browser's own storage (localStorage) — nothing is sent anywhere. Location is requested only when you tap **Capture GPS**. A service worker caches the app's own files so it works offline; it fetches nothing else.
 
 ## Children's Privacy
 
