@@ -59,7 +59,7 @@ android {
         val variant = this
         variant.outputs.all {
             val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-            output.outputFileName = "Pedon-Studio-${variant.versionName}-${variant.buildType.name}.apk"
+            output.outputFileName = "Pedon-Studio-${defaultConfig.versionName}-${variant.buildType.name}.apk"
         }
     }
 }

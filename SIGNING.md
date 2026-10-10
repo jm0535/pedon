@@ -201,7 +201,6 @@ For each new release:
 3. Build release APK
 4. Verify checksum: `sha256sum app/build/outputs/apk/release/Pedon-Studio-*.apk`
 5. Upload to Play Store and/or push tag for F-Droid
-6. Update `releases/RELEASE_LABEL.md`
 
 ---
 

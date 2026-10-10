@@ -1,4 +1,4 @@
-<p align="center"><img src="design/pedon_logo.png" width="192" alt="Pedon Studio logo — seedling on soil layers"/></p>
+<p align="center"><img src="app/src/main/assets/pedon_logo.png" width="192" alt="Pedon Studio logo — seedling on soil layers"/></p>
 
 # Pedon Studio
 
@@ -66,7 +66,7 @@ The classification engine (`wrb2022.js`) implements the complete WRB 2022 key:
 
 ### Qualifier-list audit
 
-`references/audits/wrb2022_qualifier_mapping_audit.md` records a direct extraction of the corrected manual's Chapter 4 tables (printed pp. 95–126) and comparison with the reference-only `soilKey` per-RSG YAML. It found 661 principal and 1,167 supplementary table entries in the manual. The corrected manual controls, including its 2024 changes. `soilKey` is kept as reference material only and is not integrated or packaged as Pedon's classifier.
+A direct audit (not shipped in this repository) extracted the corrected manual's Chapter 4 tables (printed pp. 95–126) and compared them with the reference-only `soilKey` per-RSG YAML. It found 661 principal and 1,167 supplementary table entries in the manual. The corrected manual controls, including its 2024 changes. `soilKey` is kept as reference material only and is not integrated or packaged as Pedon's classifier.
 
 
 ## Release
@@ -80,7 +80,6 @@ The classification engine (`wrb2022.js`) implements the complete WRB 2022 key:
 | **Minimum SDK** | API 29 (Android 10) |
 | **Target SDK** | API 35 (Android 15) |
 | **Application ID** | `org.pedon.app` |
-| **Release label** | [RELEASE_LABEL.md](releases/RELEASE_LABEL.md) |
 | **Signing guide** | [SIGNING.md](SIGNING.md) |
 | **Privacy policy** | [PRIVACY.md](PRIVACY.md) |
 | **License** | Apache 2.0 |
@@ -160,7 +159,7 @@ Requirements: Android Studio with Android SDK Platform 35, JDK 17, and internet 
 Gradle APK output:
 
 ```text
-app/build/outputs/apk/debug/app-debug.apk
+app/build/outputs/apk/debug/Pedon-Studio-2.0.0-debug.apk
 ```
 
 The debug APK is signed with the standard debug key for sideload/testing; it is not a Play Store release. To publish or issue future signed updates, create and securely retain your own release keystore.
@@ -175,7 +174,7 @@ Push the project to a GitHub repository and run **Build Pedon APK** from Actions
 - GPS is requested at runtime. Photo/gallery selection uses Android's document picker; camera capture is offered where a camera app is available.
 - Exports are written using MediaStore into `Downloads/Pedon`; no broad storage permission is used.
 - Profile data and embedded downsized photos are stored in WebView local storage. This has finite capacity; export backups regularly.
-- `android:allowBackup` remains enabled from the supplied manifest. Decide whether automatic Android/device-transfer backups are appropriate for your survey's sensitive coordinates and notes before deployment.
+- `android:allowBackup` is disabled so sensitive coordinates and notes are not copied into Android cloud or device-transfer backups. Use the in-app JSON export to back up data.
 
 ## Repository
 

@@ -1,4 +1,4 @@
-<p align="center"><img src="design/pedon_logo.png" width="192" alt="Pedon Studio logo — seedling on soil layers"/></p>
+<p align="center"><img src="../app/src/main/assets/pedon_logo.png" width="192" alt="Pedon Studio logo — seedling on soil layers"/></p>
 
 # WRB 2022 Qualifier Rules System - Complete Implementation
 

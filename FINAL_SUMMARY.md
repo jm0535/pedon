@@ -1,4 +1,4 @@
-<p align="center"><img src="design/pedon_logo.png" width="192" alt="Pedon Studio logo — seedling on soil layers"/></p>
+<p align="center"><img src="app/src/main/assets/pedon_logo.png" width="192" alt="Pedon Studio logo — seedling on soil layers"/></p>
 
 # WRB 2022 Implementation - Final Summary
 
@@ -119,12 +119,6 @@ pedon-android-project/
 │
 ├── references/
 │   ├── QUALIFIER_RULES_README.md     # Complete qualifier documentation (NEW)
-│   ├── audits/
-│   │   ├── wrb2022_complete_status.md        # Overall status document
-│   │   ├── wrb2022_engine_status.md          # Engine implementation status
-│   │   ├── wrb2022_qualifier_mapping_audit.md # Qualifier mapping audit
-│   │   └── pedon_input_evidence_gap_audit.md # Input evidence gaps
-│   └── WRB_2022_4th_edition_corrected_2024-09-24.pdf
 │
 └── tools/
     ├── build_wrb2022_qualifier_asset.py
