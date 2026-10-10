@@ -5,6 +5,8 @@
 <p align="center"><b>Offline-first field companion for soil profile description and WRB 2022 classification</b></p>
 
 <p align="center">
+  <a href="docs/USER_GUIDE.md">User Guide</a> ·
+  <a href="#screenshots">Screenshots</a> ·
   <a href="#features">Features</a> ·
   <a href="#wrb-2022-engine">WRB 2022 Engine</a> ·
   <a href="#release">Release</a> ·
@@ -15,6 +17,24 @@
 ---
 
 A self-contained Android Studio project targeting Android 10 or newer (API 29+), using an offline WebView asset loader, and writing reports to `Downloads/Pedon` through a narrowly scoped native bridge. The launcher uses the seedling-and-layered-soil concept as an Android adaptive icon, with its artwork kept inside the launcher safe area.
+
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/02-tools.png" width="200" alt="Tools home screen"/>
+  <img src="docs/screenshots/04-profile-site.png" width="200" alt="Horizon description"/>
+  <img src="docs/screenshots/06-classification.png" width="200" alt="WRB 2022 classification"/>
+  <img src="docs/screenshots/08-export.png" width="200" alt="Export"/>
+</p>
+<p align="center">
+  <img src="docs/screenshots/07-profiles.png" width="200" alt="Profiles list"/>
+  <img src="docs/screenshots/09-tool.png" width="200" alt="Texture calculator"/>
+  <img src="docs/screenshots/11-tools-light.png" width="200" alt="Light mode"/>
+  <img src="docs/screenshots/01-onboarding.png" width="200" alt="Welcome screen"/>
+</p>
+<p align="center"><img src="docs/screenshots/12-desktop.png" width="820" alt="Tablet / desktop layout"/></p>
+
+New to the app? Read the **[User Guide](docs/USER_GUIDE.md)**.
 
 ## Features
 
@@ -80,11 +100,26 @@ A direct audit (not shipped in this repository) extracted the corrected manual's
 | **Minimum SDK** | API 29 (Android 10) |
 | **Target SDK** | API 35 (Android 15) |
 | **Application ID** | `org.pedon.app` |
+| **User guide** | [docs/USER_GUIDE.md](docs/USER_GUIDE.md) |
 | **Signing guide** | [SIGNING.md](SIGNING.md) |
 | **Privacy policy** | [PRIVACY.md](PRIVACY.md) |
 | **License** | Apache 2.0 |
 
 The 2.0.0 milestone marks the completion of the WRB 2022 engine: 22 diagnostic calculators covering all 32 Reference Soil Groups, qualifier evaluation with depth specifications, and evidence-based final WRB name generation.
+
+## Download
+
+Prebuilt APKs are in [`releases/`](releases/):
+
+| File | Use |
+|---|---|
+| `Pedon-Studio-2.0.0-release.apk` | Minified build for sideloading |
+| `Pedon-Studio-2.0.0-debug.apk` | Testing build (`org.pedon.app.debug`, installs alongside the release build) |
+| `SHA256SUMS` | Checksums — verify with `sha256sum -c SHA256SUMS` inside `releases/` |
+
+> The committed release APK is signed with the **debug key** because no release keystore is configured. It is fine for sideloading, but Play Store uploads and upgrade-compatible releases need your own keystore (see [SIGNING.md](SIGNING.md)).
+
+See the **[User Guide](docs/USER_GUIDE.md)** for installation and usage.
 
 ## Build
 
@@ -150,27 +185,36 @@ Plus 16 qualifier rules tests — **92 tests total, 100% passing**.
 
 ## Build locally
 
-Requirements: Android Studio with Android SDK Platform 35, JDK 17, and internet access for the first Gradle sync.
+Requirements: Android SDK Platform 35 and build-tools 35.0.0, **JDK 17** (Gradle 8.9 does not run on newer JDKs such as 25), and internet access for the first Gradle sync. Android Studio is optional.
 
 ```sh
-./gradlew assembleDebug
+export JAVA_HOME=/path/to/jdk-17 ANDROID_HOME=/path/to/android-sdk
+./gradlew assembleDebug assembleRelease
 ```
 
-Gradle APK output:
+Outputs:
 
 ```text
 app/build/outputs/apk/debug/Pedon-Studio-2.0.0-debug.apk
+app/build/outputs/apk/release/Pedon-Studio-2.0.0-release.apk
 ```
 
-The debug APK is signed with the standard debug key for sideload/testing; it is not a Play Store release. To publish or issue future signed updates, create and securely retain your own release keystore.
+If no release keystore is configured, the release build falls back to the debug key. To publish, create and securely retain your own release keystore.
+
+To publish new APKs in the repository, copy them into `releases/` and regenerate checksums:
+
+```sh
+cp app/build/outputs/apk/*/Pedon-Studio-*.apk releases/
+(cd releases && sha256sum *.apk > SHA256SUMS)
+```
 
 ## GitHub Actions
 
-Push the project to a GitHub repository and run **Build Pedon APK** from Actions (or push to `main`). The workflow runs the Node smoke checks, builds `assembleDebug`, and publishes `pedon-debug-apk` as an artifact for 14 days.
+Two workflows are included: **Build Pedon APK** (`build.yml`) runs the smoke and qualifier tests, builds `assembleDebug` and uploads `pedon-debug-apk` for 14 days; **Build APK** (`build-apk.yml`) builds and uploads the debug APK. They require GitHub Actions minutes on the account. When Actions is unavailable, build locally (above) and commit the APKs to `releases/`.
 
 ## Offline/privacy notes
 
-- The manifest does not request Internet access; online team sync is unavailable in this Android wrapper.
+- The manifest does not request Internet access; the app has no online sync.
 - GPS is requested at runtime. Photo/gallery selection uses Android's document picker; camera capture is offered where a camera app is available.
 - Exports are written using MediaStore into `Downloads/Pedon`; no broad storage permission is used.
 - Profile data and embedded downsized photos are stored in WebView local storage. This has finite capacity; export backups regularly.

@@ -1,5 +1,7 @@
 <p align="center"><img src="app/src/main/assets/pedon_logo.png" width="192" alt="Pedon Studio logo — seedling on soil layers"/></p>
 
+> **Historical document.** This report records the state of the project on the date shown. Since then the WRB modules were merged into a single `app/src/main/assets/wrb2022.js`, the engine reached 22 calculators covering all 32 RSGs, and `references/audits/` and the bundled reference archives were removed from the repository. For current information see [README.md](README.md) and the [User Guide](docs/USER_GUIDE.md).
+
 # WRB 2022 Implementation Complete
 
 **Date:** 2026-10-10  

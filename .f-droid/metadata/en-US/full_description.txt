@@ -4,7 +4,7 @@ Features:
 • Describe soil profiles in the field using FAO-standard horizon codes
 • Automatic WRB 2022 classification with 22 diagnostic calculators covering all 32 Reference Soil Groups
 • Qualifier evaluation and final WRB name generation
-• 18 field tools: texture, pH/salinity, bulk density, carbon stocks, CEC/base saturation, RUSLE erosion, lime requirement, and more
+• 19 field tools: texture, pH/salinity, bulk density, carbon stocks, CEC/base saturation, RUSLE erosion, lime requirement, and more
 • Photo capture and compression
 • GPS coordinate recording
 • Export to PDF, Word (.docx), CSV, GeoJSON, or JSON backup
